@@ -1,0 +1,3 @@
+p value when log sample size equal 21 and data id 0: Success
+p value when log sample size equal 20 and data id 0: Success
+minimal log_train_sample: 20

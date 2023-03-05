@@ -1,0 +1,63 @@
+# only name, seed, and info about data will be used to specify saved path
+# it's ideal to change name for every run
+name: test_new
+log_interval: 10
+use_wandb: True
+search: False
+
+
+data:
+  seed: 0
+  s_noise: 0.2
+  s_secret: 0.2
+  id: 0
+  d: 20
+  repeat: 1 # used only for generating the data, greater than id
+
+
+stop_criterion:
+  type: step
+  step: 1000
+  time: 1000
+  acc: 0.51
+
+model:
+  model_type: mlp
+  mlp:
+    num_layer: 1
+    hidden_dim: 2000
+    activation: relu
+    output_activation: sigmoid
+    dropout: 0
+  sparse_mlp:
+    num_layer: 1
+    hidden_dim: 1000
+    activation: relu
+    output_activation: sigmoid
+    dropout: 0
+    sparsity: 0.2
+  cnn:
+    out_channel: 1000
+    kernel_size: 3
+    dropout: 0
+    activation: relu
+    output_activation: sigmoid
+
+train:
+  num: 10000 # when set to -1, correspond to abundant sample case
+  loss: logistic
+  batch_size: 1.0 # when batch size is a fraction, fore example 1.0 in this case it corresponds to a fraction of the training set
+  optimizer: 
+    name: adam
+    weight_decay: 0
+    lr: 2e-4
+  scheduler:
+    name: none
+  l1:
+    use: False
+    lamb: 0.0
+
+test:
+  num: 1000
+  clean: False
+
