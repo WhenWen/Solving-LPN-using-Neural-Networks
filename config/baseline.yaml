@@ -1,63 +1,64 @@
-# only name, seed, and info about data will be used to specify saved path
-# it's ideal to change name for every run
-name: test_new
-log_interval: 10
-use_wandb: True
-search: False
+name: baseline # The name of the current experiment
+log_interval: 10 # Number of update steps between each logging step
+# Weight & Bias
+use_wandb: False # If set to True, will update the result to Weight & Bias. 
+wandb_project_name: LPN_Open_Source # Project name when updating to Weight& Bias
+wandb_entity_name: lpniiis # Entity name when updating to Weight& Bias
+search: False # If set to true, is used to perform sample complexity search (by pyscript/lpn_hyper.py), see hyper_config/baseline for an example
 
 
 data:
-  seed: 0
-  s_noise: 0.2
-  s_secret: 0.2
-  id: 0
-  d: 20
+  seed: 0 # Random seed for data generation
+  s_noise: 0.2 # Bernoulli probability of the additive noise
+  s_secret: 0.2 # (Hamming weight / Dimension) for the secret
+  id: 0 # ID for the dataset
+  d: 20 # Secret Dimension
   repeat: 1 # used only for generating the data, greater than id
 
 
 stop_criterion:
-  type: step
-  step: 1000
-  time: 1000
-  acc: 0.51
+  type: step # Specify the type of stop criterion, choose from step, time or time
+  step: 1000 # Specify the maximum update step an experiment run, activated when type = step
+  time: 1000 # Specify the maximum number of seconds an experiment run, activated when type = time
+  acc: 0.51 # Specify the accuracy threshold of an experiment run, when reached, the experiment stopped, activated when type = acc
 
 model:
-  model_type: mlp
+  model_type: mlp # Specify the type of the model
   mlp:
-    num_layer: 1
-    hidden_dim: 2000
-    activation: relu
-    output_activation: sigmoid
-    dropout: 0
+    num_layer: 1 # Number of hidden layers in the MLP
+    hidden_dim: 2000 # Widths of the intermediate layer
+    activation: relu # Activation of the intermediate layer
+    output_activation: sigmoid # Activation of the output layer
+    dropout: 0 # Dropout ratio of the intermediate layer
   sparse_mlp:
-    num_layer: 1
-    hidden_dim: 1000
-    activation: relu
-    output_activation: sigmoid
-    dropout: 0
-    sparsity: 0.2
+    num_layer: 1 # Number of hidden layers in the sparse MLP
+    hidden_dim: 1000 # Widths of the intermediate layer
+    activation: relu # Activation of the intermediate layer
+    output_activation: sigmoid # Activation of the output layer
+    dropout: 0 # Dropout ratio of the intermediate layer
+    sparsity: 0.2 # 1 - (#Nonzero Elements/#Elements in Weight)
   cnn:
-    out_channel: 1000
-    kernel_size: 3
-    dropout: 0
-    activation: relu
-    output_activation: sigmoid
+    out_channel: 1000 # Number of Convolution Channels
+    kernel_size: 3 # Kernel size for the convolution
+    dropout: 0 # Dropout ratio of the intermediate layer
+    activation: relu # Activation of the intermediate layer
+    output_activation: sigmoid # Activation of the output layer
 
 train:
-  num: 10000 # when set to -1, correspond to abundant sample case
-  loss: logistic
-  batch_size: 1.0 # when batch size is a fraction, fore example 1.0 in this case it corresponds to a fraction of the training set
+  num: 10000 # when set to -1, fresh samples are sampled in each update, correspond to abundant sample case
+  loss: logistic # Type of loss function, choose from mse, logistic and mae
+  batch_size: 1.0 # When batch size is a fraction, fore example 1.0 in this case it corresponds to a fraction of the training set. When it is an interger, for example 2, corresponds to a deterministic batch size
   optimizer: 
-    name: adam
-    weight_decay: 0
-    lr: 2e-4
+    name: adam # Type of optimizer, choose from adam or sgd
+    weight_decay: 0 # Weight decay parameter
+    lr: 2e-4 # Learning rate
   scheduler:
-    name: none
+    name: none # Type of learning rate scheduler, choose from none, cosine or step
   l1:
-    use: False
-    lamb: 0.0
+    use: False # Whether to use L1 regularization
+    lamb: 0.0 # L1 regularization parameter
 
 test:
-  num: 1000
-  clean: False
+  num: 1000 # Number of samples in the test dataset
+  clean: False # When set to true, no noise is added on the test set, this shows you an approximation for the accuracy on clean sample.
 

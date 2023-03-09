@@ -22,9 +22,9 @@ def learn(args, accuracy_list = None):
                     args.data_name,
                     str(args.seed))
     if(args.use_wandb):
-        wandb.init(project="LPN_Open_Source", 
+        wandb.init(project = args.wandb_project_name, 
                     name = os.path.join(args.save_path),
-                    entity="lpniiis",
+                    entity = args.wandb_entity_name,
                     reinit = True,
                     save_code = True,
                     config = args.config)
