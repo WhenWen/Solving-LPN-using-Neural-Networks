@@ -53,10 +53,10 @@ We also provide the code to perform Gaussian Elimination based on a trained neur
 
 ## Acknowledgment
 
-The authors would like to thank [Memphisd/LPN-decoded (github.com)](https://github.com/Memphisd/LPN-decoded) for providing the base code for Gaussian Elimination
+The authors would like to thank [Memphisd/LPN-decoded (github.com)](https://github.com/Memphisd/LPN-decoded) for providing the base code for Gaussian Elimination.
 
 ## Citation
 
-If the codes help you, please cite our paper:
+If the code help you, please cite our paper:
 
 Welcome to shoot any questions in Github Issues!
