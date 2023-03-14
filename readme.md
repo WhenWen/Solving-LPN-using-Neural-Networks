@@ -49,7 +49,15 @@ python pyscript/data.py -c hyper_config/EXPERIMENT_NAME.config
 
 ## Performing Gaussian Elimination based on the Predictions of the Neural Network
 
-We also provide the code to perform Gaussian Elimination based on a trained neural network. (Under Construction)
+We also provide the code to perform Gaussian Elimination based on a trained neural network. 
+
+To do so, one need to first generate the pool of data where Gaussian Elimination source data is sampled, as well as the test data, by the neural network. One should run the following commands.
+
+
+```bash
+python pyscript/network_generate.py --network_path PATH_TO_NETWORK --secret_path PATH_TO_SECRET --pool_data_size SIZE_OF_GAUSSIAN_POOL --test_data_size SIZE_OF_TESTING_NUMBER
+```
+
 
 ## Acknowledgment
 
