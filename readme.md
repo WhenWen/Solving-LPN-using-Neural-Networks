@@ -57,7 +57,7 @@ To do so, one need to first generate the pool of data where Gaussian Elimination
 python pyscript/network_generate.py --network_path PATH_TO_NETWORK --secret_path PATH_TO_SECRET --pool_data_size SIZE_OF_GAUSSIAN_POOL --test_data_size SIZE_OF_TESTING_NUMBER
 ```
 
-One can then use the code in `cppscript/Gaussian` to decode the secret. One should first change the variables `SECRET_PATH` in line 56 of `LPN_Oracle_hack.cpp` and the variable `TEST_QUERY_PATH` in line 188 and `QUERY_PATH` in line 298 of `Prange_hack.cpp`. Then one can modify `Prange.h` accordingly, see the file for a detailed explaination for the hyperparameters. After setting the parameters, one should run the following command to compile
+One can then use the code in `cppscript/Gaussian` to decode the secret. One should first change the variables `SECRET_PATH` in line 56 of `LPN_Oracle_hack.cpp` and the variable `TEST_QUERY_PATH` in line 188 and `QUERY_PATH` in line 298 of `Prange_hack.cpp`. Then one can modify `Prange.h` accordingly, see the file for a detailed explaination for the hyperparameters. After setting the parameters, one should run the following command to compile and run the final decoding step.
 
 ```bash
 gcc -g Prange_hack.cpp LPN_Oracle_hack.cpp -lm -lstdc++ -o try -std=c++11 -fopenmp -O3
