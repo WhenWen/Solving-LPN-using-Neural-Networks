@@ -21,8 +21,6 @@ int arr_for_secret = n/64;
 
 uint64_t* query(int thread)
 {
-	std::fstream query_file("QUERY_PATH", std::ios_base::in);
-
 	for (int ipr = 0;ipr < int_per_row;ipr++)
 		vec[thread][ipr] = uint_dist((random_engines[thread]));
 

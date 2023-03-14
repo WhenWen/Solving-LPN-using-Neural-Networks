@@ -1,6 +1,3 @@
-// bruteforce_linear_codes.cpp : Definiert den Einstiegspunkt f�r die Konsolenanwendung.
-//
-
 #include "Prange.h"
 #include <iostream>
 #include <fstream>
@@ -205,7 +202,7 @@ void set_test_matrix(uint64_t** mat, bool* secret, int rows, int thread)
 
 void set_matrix(uint64_t** mat, int rows, int thread, int start)
 {
-	std::fstream query_file("queries", std::ios_base::in);
+	std::fstream query_file("QUERY_PATH", std::ios_base::in);
 	printf("%d \n", rows);
 	for (int i = start; i < rows;i++)
 	{
