@@ -33,7 +33,7 @@ Data will then be generated in directory `data`.
 
 ## Train Neural Networks to solve LPN problems
 
-To train a neural network to solve LPN problems, one should run the following commands.
+To train a neural network to solve LPN problems, one should run the following command.
 
 ```bash
 python pyscript/lpn.py -c config/EXPERIMENT_NAME.config
@@ -41,7 +41,7 @@ python pyscript/lpn.py -c config/EXPERIMENT_NAME.config
 
 ## Perform Sample Complexity Search with GPU parallelization
 
-To try binary search the minimal sample complexity for a hyperparameter to solve LPN problems, one should run the following commands.
+To try binary search the minimal sample complexity for a hyperparameter to solve LPN problems, one should run the following command.
 
 ```bash
 python pyscript/data.py -c hyper_config/EXPERIMENT_NAME.config
@@ -51,11 +51,17 @@ python pyscript/data.py -c hyper_config/EXPERIMENT_NAME.config
 
 We also provide the code to perform Gaussian Elimination based on a trained neural network. 
 
-To do so, one need to first generate the pool of data where Gaussian Elimination source data is sampled, as well as the test data, by the neural network. One should run the following commands.
-
+To do so, one need to first generate the pool of data where Gaussian Elimination source data is sampled, as well as the test data, by the neural network. One should run the following command.
 
 ```bash
 python pyscript/network_generate.py --network_path PATH_TO_NETWORK --secret_path PATH_TO_SECRET --pool_data_size SIZE_OF_GAUSSIAN_POOL --test_data_size SIZE_OF_TESTING_NUMBER
+```
+
+One can then use the code in `cppscript/Gaussian` to decode the secret. One should first change the variables `SECRET_PATH` in line 56 and `QUERY_PATH` in line 24 of `LPN_Oracle_hack.cpp` and the variable `TEST_QUERY_PATH` in line 188 of `Prange_hack.cpp`. Then one can modify `Prange.h` accordingly, see the file for a detailed explaination for the hyperparameters. After setting the parameters, one should run the following command to compile 
+
+```bash
+gcc -g Prange_hack.cpp LPN_Oracle_hack.cpp -lm -lstdc++ -o try -std=c++11 -fopenmp -O3
+./try
 ```
 
 
@@ -66,5 +72,6 @@ The authors would like to thank [Memphisd/LPN-decoded (github.com)](https://gith
 ## Citation
 
 If the code help you, please cite our paper:
+
 
 Welcome to shoot any questions in Github Issues!
