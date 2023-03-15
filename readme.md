@@ -1,6 +1,6 @@
 # Solving LPN Using Neural Networks.
 
-This repository is the official codebase for the paper Practically Solving LPN in High Noise Regimes Faster Using Neural Networks.
+This repository is the official codebase for the paper [[2303.07987] Practically Solving LPN in High Noise Regimes Faster Using Neural Networks (arxiv.org)](https://arxiv.org/abs/2303.07987).
 
 ## Environment Setup
 
@@ -71,5 +71,16 @@ The authors would like to thank [Memphisd/LPN-decoded (github.com)](https://gith
 ## Citation
 
 If the code help you, please cite our paper:
+
+```bibtex
+@misc{JWC2023practically,
+      title={Practically Solving LPN in High Noise Regimes Faster Using Neural Networks}, 
+      author={Haozhe Jiang and Kaiyue Wen and Yilei Chen},
+      year={2023},
+      eprint={2303.07987},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
 
 Welcome to shoot any questions in Github Issues!
