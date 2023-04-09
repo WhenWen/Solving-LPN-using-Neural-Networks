@@ -6,7 +6,7 @@ from utils import cos
 
 def get_mlp_layers(args):
     layers = []
-    param_module_dict = {"mlp":args.model.mlp,"sparse_mlp":args.model.sparse_mlp}
+    param_module_dict = {"mlp":args.model.mlp,"sparse_mlp":args.model.sparse_mlp, "norm_mlp":args.model.norm_mlp}
     activation_fn_dict = {"relu":nn.ReLU, "cos":cos}
     output_activation_fn_dict = {"sigmoid":nn.Sigmoid,"cos":cos}
     param_module = param_module_dict[args.model.model_type]
@@ -18,8 +18,12 @@ def get_mlp_layers(args):
         else:
             layers.append(nn.Linear(args.data.d, param_module.hidden_dim))
             for _ in range(param_module.num_layer - 1):
+                if(args.model.model_type == "norm_mlp"):
+                    layers.append(nn.LayerNorm(param_module.hidden_dim))
                 layers.append(activation_fn)
                 layers.append(nn.Linear(param_module.hidden_dim, param_module.hidden_dim))
+            if(args.model.model_type == "norm_mlp"):
+                layers.append(nn.LayerNorm(param_module.hidden_dim))
             layers.append(activation_fn)
             layers.append(nn.Linear(param_module.hidden_dim, 1))
     else:
@@ -28,14 +32,17 @@ def get_mlp_layers(args):
         else:
             layers.append(nn.Linear(args.data.d, param_module.hidden_dim))
             for _ in range(param_module.num_layer - 1):
+                if(args.model.model_type == "norm_mlp"):
+                    layers.append(nn.LayerNorm(param_module.hidden_dim))
                 layers.append(activation_fn)
                 layers.append(nn.Dropout(param_module.dropout))
                 layers.append(nn.Linear(param_module.hidden_dim, param_module.hidden_dim))
+            if(args.model.model_type == "norm_mlp"):
+                layers.append(nn.LayerNorm(param_module.hidden_dim))
             layers.append(activation_fn)
             layers.append(nn.Linear(param_module.hidden_dim, 1))
     layers.append(output_activation_fn)
     return nn.Sequential(*layers)
-
 def get_single_layer_mask(size, p):
     return torch.bernoulli(torch.ones(size)*p)
 
@@ -99,3 +106,12 @@ class cnn(nn.Module):
         cnn_output = cnn_output.reshape((cnn_output.shape[0], -1))
         output = self.mlp(cnn_output)
         return self.output_activation_fn(output)
+    
+
+class norm_mlp(nn.Module):
+    def __init__(self, args):
+        super().__init__()
+        self.args = args
+        self.network = get_mlp_layers(args)
+    def forward(self, input):
+        return self.network(input)

@@ -23,8 +23,14 @@ stop_criterion:
   acc: 0.51 # Specify the accuracy threshold of an experiment run, when reached, the experiment stopped, activated when type = acc
 
 model:
-  model_type: mlp # Specify the type of the model
+  model_type: norm_mlp # Specify the type of the model
   mlp:
+    num_layer: 1 # Number of hidden layers in the MLP
+    hidden_dim: 2000 # Widths of the intermediate layer
+    activation: relu # Activation of the intermediate layer
+    output_activation: sigmoid # Activation of the output layer
+    dropout: 0 # Dropout ratio of the intermediate layer
+  norm_mlp:
     num_layer: 1 # Number of hidden layers in the MLP
     hidden_dim: 2000 # Widths of the intermediate layer
     activation: relu # Activation of the intermediate layer
@@ -50,7 +56,7 @@ train:
   batch_size: 1.0 # When batch size is a fraction, fore example 1.0 in this case it corresponds to a fraction of the training set. When it is an interger, for example 2, corresponds to a deterministic batch size
   optimizer: 
     name: adam # Type of optimizer, choose from adam or sgd
-    weight_decay: 0 # Weight decay parameter
+    weight_decay: 5e-3 # Weight decay parameter
     lr: 2e-4 # Learning rate
   scheduler:
     name: none # Type of learning rate scheduler, choose from none, cosine or step

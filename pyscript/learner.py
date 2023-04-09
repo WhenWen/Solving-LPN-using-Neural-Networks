@@ -23,7 +23,7 @@ class Learner(nn.Module):
 
     def get_model(self):
         args = self.args
-        model_type_dict = {"mlp":mlp, "sparse_mlp":sparse_mlp, "cnn":cnn}
+        model_type_dict = {"mlp":mlp, "sparse_mlp":sparse_mlp, "cnn":cnn, "norm_mlp":norm_mlp}
         self.network = model_type_dict[args.model.model_type](args)
     
     def get_loss(self):
