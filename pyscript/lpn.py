@@ -15,6 +15,7 @@ from utils import set_seed, Namespace, flatten, sample_batch
 
 
 def learn(args, accuracy_list = None):
+    args.data.num = args.train.num + args.test.num
     args.data_name = "data_{}_{}_{}_{}_{}_{}".format(args.data.seed, args.data.d, args.data.s_secret, args.data.s_noise, args.data.num, args.data.id)
     args.save_path = join(
                     "raw_results",
