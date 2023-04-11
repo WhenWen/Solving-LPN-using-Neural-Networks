@@ -23,8 +23,8 @@ def sample_batch(args, data, test = False):
             num = args.train.batch_size
         queries = torch.randint(0,2, [num, args.data.d], device= args.device).float()
         secret = args.secret.float()
-        if(not args.test.clean):
-            result = (torch.mm(queries,secret.unsqueeze(1))+gen_noise(args.data.s_noise, num, args.device))%2
+        if(not args.test.clean and test):
+            result = (torch.mm(queries,secret.unsqueeze(1))+ gen_noise(args.data.s_noise, num, args.device))%2
         else:
             result = (torch.mm(queries,secret.unsqueeze(1)))%2
         batch['input'] = queries
